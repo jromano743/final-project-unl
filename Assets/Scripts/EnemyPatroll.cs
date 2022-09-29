@@ -80,7 +80,7 @@ public class EnemyPatroll : BaseEnemy
         {
             lookRigth = false;
         }
-        FlipDirection(lookRigth);
+        FlipDirection(lookRigth);//TODO::Comprobar si esto afecta o no el rendimiento
     }
 
     //Da vuelta el personaje

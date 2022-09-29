@@ -93,7 +93,7 @@ public class LevelManager : MonoBehaviour
         guiGame.time = 0.0f;
     }
 
-    //TODO FUNCION PARA MOSTRAR EL PANEL FINAL
+    //TODO: FUNCION PARA MOSTRAR EL PANEL FINAL
     public void CountCoins()
     {
         takenOjbects = new bool[3];
@@ -120,7 +120,7 @@ public class LevelManager : MonoBehaviour
         guiGame.gameOver = true;
         currentTime = guiGame.time;
         CountCoins();
-        sceneLoader.UnlockLevel();
+        //sceneLoader.UnlockLevel();//TODO: Desbloquear SOLO el nivel siguiente al nivel actual
         finishMenu.SetActive(true);
         guiGame.ShowCollectableItems(takenOjbects[0], takenOjbects[1], takenOjbects[2]);
     }

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.UIElements;
+using UnityEngine.UIElements;
 
 public enum GunColor
 {
@@ -85,7 +85,6 @@ public class ListaCircular
                 reco = reco.sig;
             } while (reco != raiz);
         }
-        Debug.Log("Cantidad de nodos: " + cant);
         return cant;
     }
 
@@ -227,14 +226,15 @@ public class GrapplingGun : MonoBehaviour
             rope.SetPosition(0, hookHolder.transform.position);//El primer punto se lo coloca en el hookholder
             rope.SetPosition(1, hook.transform.position);//El segundo punto se lo coloca en el hook
             Vector3 mousePos = Input.mousePosition;//Se guarda la posicion del mouse en
-            mousePos.z = 0f;//Se le modifca el eje Z ¿WHY?
+            mousePos.z = 0f;//Se le modifca el eje Z
 
             //Se toma la posicion del holder en el mundo y se obtiene la distancia entre el mouse y este
             Vector3 objectPos = Camera.main.WorldToScreenPoint(hookHolder.transform.position);
             mousePos.x = mousePos.x - objectPos.x;
             mousePos.y = mousePos.y - objectPos.y;
 
-            //Se calcula el angulo en donde esta el mouse con respecto al holder y se hace que este siga al mouse
+            //Se calcula el angulo en donde esta el mouse con respecto al holder
+            //Se hace que este siga al mouse
             float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
             hookHolder.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
         }
@@ -284,11 +284,12 @@ public class GrapplingGun : MonoBehaviour
         {
             AudioManager.sharedInstance.PlaySound(AudioManager.sharedInstance.grraplinGun);
             fired = true;
-        };
+        }
 
         if (Input.GetMouseButtonDown(1))
         {
-            list.RotateToRigth(); ChangeWeaponColor();
+            list.RotateToRigth(); 
+            ChangeWeaponColor();
         }
     }
 
@@ -310,7 +311,6 @@ public class GrapplingGun : MonoBehaviour
                 break;
         }
         activeColor = list.ReturnActiveColor();
-        list.DebugLogs();
     }
     IEnumerator Climb()
     {

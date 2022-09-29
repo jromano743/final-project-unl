@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GUIManager : MonoBehaviour
 {
     public Text timer;
-    public GrapplingGun ggun;
+    public GrapplingGun grapGun;
     GunColor activeColorGun;
     public float time = 0.0f;
 
@@ -18,7 +18,7 @@ public class GUIManager : MonoBehaviour
     void Start()
     {
         timer.text = "Tiempo: " + time.ToString("f2");
-        activeColorGun = ggun.activeColor;
+        activeColorGun = grapGun.activeColor;
         ChangeColor();
     }
 
@@ -30,18 +30,18 @@ public class GUIManager : MonoBehaviour
             time += Time.deltaTime;
             timer.text = "Tiempo " + time.ToString("f2");
         }
-        if(activeColorGun != ggun.activeColor)
+        if(activeColorGun != grapGun.activeColor)
         {
             ChangeColor();
-            activeColorGun = ggun.activeColor;
+            activeColorGun = grapGun.activeColor;
         }
     }
 
     void ChangeColor()
     {
-        lastColor.color = AssignColor(ggun.GetColor(2));
-        activeColor.color = AssignColor(ggun.GetColor(0));
-        nextColor.color = AssignColor(ggun.GetColor(1));
+        lastColor.color = AssignColor(grapGun.GetColor(2));
+        activeColor.color = AssignColor(grapGun.GetColor(0));
+        nextColor.color = AssignColor(grapGun.GetColor(1));
     }
 
     Color AssignColor(GunColor color)

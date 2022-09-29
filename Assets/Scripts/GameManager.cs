@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-        Screen.SetResolution(1280, 720, true, 60);
+        Screen.SetResolution(1024, 768, true, 60);
     }
     public void ExitGame()
     {

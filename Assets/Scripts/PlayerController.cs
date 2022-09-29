@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     Vector3 initialPosition;
     Vector3 resetZ;
     public bool gameOver;
+    public bool canWalk
+    {get; set;}
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +27,7 @@ public class PlayerController : MonoBehaviour
         look = false;
         initialPosition = transform.position;
         canJump = true;
+        canWalk = true;
         rb = GetComponent<Rigidbody>();
         lookRight = true;
         resetZ = new Vector3(1, 1, 0);
@@ -32,8 +35,14 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Reset") && !gameOver) LevelManager.sharedInstance.ResetAllLevel();
-        if (!gameOver) CheckMove();
+        if(!gameOver && canWalk){
+            CheckMove();
+            if (Input.GetButtonDown("Reset")) LevelManager.sharedInstance.ResetAllLevel();
+        }
+        if(!canWalk){
+            StopForces();
+            anim.SetFloat("VelX", 0f);
+        }
     }
 
     //Mover al personaje en el eje horizontal

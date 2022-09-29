@@ -15,9 +15,9 @@ public class FinishLevel : MonoBehaviour
             needAKey = true;
         }
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if(other.tag == "Player")
+        if(other.tag == "Player" && Input.GetButton("Jump"))
         {
             CheckWin();
         }

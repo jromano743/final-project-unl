@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e72fd20b11b1f914498fc5cad3bce380, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentLevel: 1
+  currentLevel: 0
   menuButtons:
   - {fileID: 0}
   - {fileID: 0}

@@ -18,6 +18,8 @@ public class SceneLoader : MonoBehaviour
             numberOfLevels = menuButtons.Length;
             UpdateButtons();
         }
+        Debug.Log("Nivel actual START:" + currentLevel);
+        Debug.Log("Niveles actuales: START" + numberOfLevels);
     }
 
     //Actualiza los botones que se muestran en el menu de selecciond de nivel
@@ -35,16 +37,16 @@ public class SceneLoader : MonoBehaviour
         if(unlockedLevels < currentLevel)
         {
             unlockedLevels = currentLevel;
-            currentLevel++;
         }
     }
 
     //Abre el siguiente nivel disponible
     public void NextLevel()
     {
+        if (currentLevel > 0) UnlockLevel();
         if (currentLevel <= numberOfLevels)
         {
-            OpenLevel(currentLevel);
+            OpenLevel(currentLevel+1);
         }
         else
         {
@@ -54,14 +56,22 @@ public class SceneLoader : MonoBehaviour
     //0 is the menu. Any other is a level
     public void OpenLevel(int level)
     {
-        if(level == 0)
-        {
-            SceneManager.LoadScene("Menu");
+        switch(level){
+            case -2:
+                SceneManager.LoadScene("Menu");
+            break;
+            case -1:
+                SceneManager.LoadScene("Tutorial");
+            break;
+            case 0:
+                SceneManager.LoadScene("Base");
+            break;
+            default:
+                SceneManager.LoadScene("Level" + level);
+            break;
         }
-        else
-        {
-            SceneManager.LoadScene("Level" + level);
-        }
+        Debug.Log("Niveles actuales:" + numberOfLevels);
+        Debug.Log("Nivel actual:" + currentLevel);
     }
 
     public void QuitGame()
