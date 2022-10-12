@@ -21,35 +21,67 @@ public class EnemyPatroll : BaseEnemy
         startPosition = transform.position;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         anim.SetBool("Move", true);
+        PaintColorObject();
     }
 
     // Update is called once per frame
     void Update()
     {
         if (resetMe) ResetEnemy();
-        if (!chaseEnemy)
+
+        //No esta agarrado ni stuneado
+        if(!isGrappred && !isStuned)
         {
-            if (lookRigth)
+            if (!chaseEnemy)
             {
-                rb.velocity = new Vector3(speed, 0, 0);
+                if (lookRigth)
+                {
+                    rb.velocity = new Vector3(speed, 0, 0);
+                }
+                else
+                {
+                    rb.velocity = new Vector3(-speed, 0, 0);
+                }
+                CheckDirectionOnPatroll();
             }
             else
             {
-                rb.velocity = new Vector3(-speed, 0, 0);
+                SetPlayerDirection();
+                FlipDirection(lookRigth);
+                if (lookRigth)
+                {
+                    rb.velocity = new Vector3(chaseSpeed, 0, 0);
+                }
+                else
+                {
+                    rb.velocity = new Vector3(-chaseSpeed, 0, 0);
+                }
             }
-            CheckDirectionOnPatroll();
         }
-        else
+        
+
+        //ESTA AGARRADO
+        if(isGrappred)
         {
-            SetPlayerDirection();
-            FlipDirection(lookRigth);
-            if (lookRigth)
+            float step = (speed * 5 ) *Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, grappPosition.position, step);
+
+            isGrappred = false;
+            isStuned = true;
+
+            stunPosition = transform;
+        }
+
+        //Esta stuneado
+        if(isStuned)
+        {
+            transform.position = stunPosition.position;
+            rb.velocity = Vector3.zero;
+            currentStunTime -= Time.deltaTime;
+            if(currentStunTime < 0)
             {
-                rb.velocity = new Vector3(chaseSpeed, 0, 0);
-            }
-            else
-            {
-                rb.velocity = new Vector3(-chaseSpeed, 0, 0);
+                isStuned = false;
+                anim.SetBool("Stunned", false);
             }
         }
 
@@ -101,8 +133,26 @@ public class EnemyPatroll : BaseEnemy
     {
         if(other.tag == "Player")
         {
+            if(isStuned) return;
+
             chaseEnemy = true;
             anim.SetBool("Chase", chaseEnemy);
+        }
+
+        if(other.tag == "Gun")
+        {
+            if(isStuned) return;
+
+            
+            GunColor color = other.GetComponentInParent<GrapplingGun>().GetColor();
+            bool isCorrectColor = GrappeMe(color, player);
+            if(isCorrectColor)
+            {
+                chaseEnemy = false;
+
+                player.gameObject.GetComponent<PlayerController>().holdEnemy = true;
+                anim.SetBool("Stunned", true);
+            }
         }
     }
 
@@ -124,12 +174,18 @@ public class EnemyPatroll : BaseEnemy
         Gizmos.DrawRay(transform.position, transform.right * maxLeft * -1);
     }
 
+
     //Reinicia los valores del personaje a sus valores iniciales
     protected override void ResetEnemy()
     {
         resetMe = false;
+        isGrappred = false;
+        isStuned = false;
         transform.position = startPosition;
         lookRigth = true;
         chaseEnemy = false;
+        anim.SetBool("Chase", false);
+        anim.SetBool("Move", false);
+        anim.SetBool("Stunned", false);
     }
 }

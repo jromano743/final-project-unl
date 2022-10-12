@@ -90,10 +90,7 @@ public class ListaCircular
 
     public void DebugLogs()
     {
-        Debug.Log("Raiz: " + raiz.color);
-        Debug.Log("Raiz.sig: " + raiz.sig.color);
-        Debug.Log("Raiz.sig.sig: " + raiz.sig.sig.color);
-
+        
     }
 
     public void Borrar(int pos)

@@ -24,15 +24,29 @@ public class EnemyShooter : BaseEnemy
     void Start()
     {
         FlipDirection(lookRight);
+        PaintColorObject();
     }
 
     // Update is called once per frame
     void Update()
     {
-        actualTime -= Time.deltaTime;
-        if(actualTime < 0.0f)
+        if(isStuned)
         {
-            ChangeStatus();
+            currentStunTime -= Time.deltaTime;
+
+            if(currentStunTime < 0)
+            {
+                isStuned = false;
+                anim.SetBool("Stunned", false);
+            }
+        }
+        else
+        {
+            actualTime -= Time.deltaTime;
+            if(actualTime < 0.0f)
+            {
+                ChangeStatus();
+            }
         }
     }
 
@@ -54,7 +68,7 @@ public class EnemyShooter : BaseEnemy
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player" && awake)
+        if(other.tag == "Player" && awake && !isStuned)
         {
             target = other.transform;
             Shoot();
@@ -105,5 +119,23 @@ public class EnemyShooter : BaseEnemy
         Gizmos.color = Color.blue;
         Gizmos.DrawRay(transform.position, transform.right * distance);
         Gizmos.DrawRay(transform.position, transform.right * -distance);
+    }
+
+    public void HitInHead()
+    {
+        if(isStuned) return;
+
+        GameObject target = GameObject.FindGameObjectWithTag("Player");
+        Transform targetPosition = target.transform;
+        GunColor color = target.GetComponentInParent<GrapplingGun>().GetColor();
+
+        bool isCorrectColor = GrappeMe(color, targetPosition);
+
+        if(isCorrectColor)
+        {
+            target.gameObject.GetComponent<PlayerController>().holdEnemy = true;
+            isStuned = true;
+            anim.SetBool("Stunned", true);
+        }
     }
 }

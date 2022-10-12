@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     public bool gameOver;
     public bool canWalk
     {get; set;}
+    public bool holdEnemy
+    {get; set;}
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +30,7 @@ public class PlayerController : MonoBehaviour
         initialPosition = transform.position;
         canJump = true;
         canWalk = true;
+        holdEnemy = false;
         rb = GetComponent<Rigidbody>();
         lookRight = true;
         resetZ = new Vector3(1, 1, 0);
@@ -94,11 +97,24 @@ public class PlayerController : MonoBehaviour
             anim.SetFloat("VelY", 0f);
             canJump = true;
         }
+
         if(collision.transform.tag == "Enemy" && !gameOver)
+        {
+            bool enemyStuned = collision.gameObject.GetComponent<BaseEnemy>().IsStuned();
+
+            if(!enemyStuned)
+            {
+                ResetPosition();
+                LevelManager.ResetLevel();
+            }
+        }
+
+        if(collision.transform.tag == "Bullet")
         {
             ResetPosition();
             LevelManager.ResetLevel();
         }
+
         if(collision.transform.tag == "Finish")
         {
             LevelManager.sharedInstance.FinishLevel();

@@ -16,6 +16,8 @@ TagManager:
   - Key
   - Door
   - BoxDialog
+  - Gun
+  - Bullet
   layers:
   - Default
   - TransparentFX

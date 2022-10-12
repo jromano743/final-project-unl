@@ -18,8 +18,8 @@ public class SceneLoader : MonoBehaviour
             numberOfLevels = menuButtons.Length;
             UpdateButtons();
         }
-        Debug.Log("Nivel actual START:" + currentLevel);
-        Debug.Log("Niveles actuales: START" + numberOfLevels);
+        //Debug.Log("Nivel actual START:" + currentLevel);
+        //Debug.Log("Niveles actuales: START" + numberOfLevels);
     }
 
     //Actualiza los botones que se muestran en el menu de selecciond de nivel
@@ -70,13 +70,13 @@ public class SceneLoader : MonoBehaviour
                 SceneManager.LoadScene("Level" + level);
             break;
         }
-        Debug.Log("Niveles actuales:" + numberOfLevels);
-        Debug.Log("Nivel actual:" + currentLevel);
+        //Debug.Log("Niveles actuales:" + numberOfLevels);
+        //Debug.Log("Nivel actual:" + currentLevel);
     }
 
     public void QuitGame()
     {
-        Debug.Log("Quit");
+        //Debug.Log("Quit");
         Application.Quit();
     }
 }

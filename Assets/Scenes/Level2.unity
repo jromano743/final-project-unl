@@ -1078,7 +1078,7 @@ PrefabInstance:
     - target: {fileID: 4397468200829288114, guid: 1e62403815e6cea448571097428a495a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -183.07
+      value: -109.2
       objectReference: {fileID: 0}
     - target: {fileID: 4397468200829288114, guid: 1e62403815e6cea448571097428a495a,
         type: 3}
@@ -4136,6 +4136,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 278310473}
     m_Modifications:
     - target: {fileID: 1027060113, guid: 677e99fcca178014fa4e1f5b44aafaf0, type: 3}
+      propertyPath: stunTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027060113, guid: 677e99fcca178014fa4e1f5b44aafaf0, type: 3}
       propertyPath: lookRight
       value: 0
       objectReference: {fileID: 0}
@@ -4146,6 +4150,10 @@ PrefabInstance:
     - target: {fileID: 1027060113, guid: 677e99fcca178014fa4e1f5b44aafaf0, type: 3}
       propertyPath: timeSleep
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1027060113, guid: 677e99fcca178014fa4e1f5b44aafaf0, type: 3}
+      propertyPath: EnemyColor
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1027060113, guid: 677e99fcca178014fa4e1f5b44aafaf0, type: 3}
       propertyPath: bulletSpeed
@@ -4218,6 +4226,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5426007552898808278, guid: 677e99fcca178014fa4e1f5b44aafaf0,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 677e99fcca178014fa4e1f5b44aafaf0, type: 3}
