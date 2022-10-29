@@ -2,26 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyPatroll : BaseEnemy
+public class EnemyReporter : BaseEnemy
 {
     [Header("Variables de Patrullero")]
     public Animator anim;
     public float maxRight;
     public float maxLeft;
     public float speed;
-    public float chaseSpeed;
+    public float reportSpeed;
+    bool reported = false;
     public Rigidbody rb;
     bool lookRigth = true;
-    bool chaseEnemy = false;
+    bool reportEnemy = false;
+    [SerializeField] Alarm CloseAlarm;
     [Header("Variables del jugador")]
     Transform player;
     // Start is called before the first frame update
     void Start()
     {
         startPosition = transform.position;
+        reported = false;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         anim.SetBool("Move", true);
         PaintColorObject();
+        if(CloseAlarm == null) Debug.LogError(gameObject.name + "Doesn't have alarm");
     }
 
     // Update is called once per frame
@@ -32,7 +36,7 @@ public class EnemyPatroll : BaseEnemy
         //No esta agarrado ni stuneado
         if(!isGrappred && !isStuned)
         {
-            if (!chaseEnemy)
+            if (!reportEnemy || reported)
             {
                 if (lookRigth)
                 {
@@ -46,15 +50,15 @@ public class EnemyPatroll : BaseEnemy
             }
             else
             {
-                SetPlayerDirection();
+                SetAlarmDirection();
                 FlipDirection(lookRigth);
                 if (lookRigth)
                 {
-                    rb.velocity = new Vector3(chaseSpeed, 0, 0);
+                    rb.velocity = new Vector3(reportSpeed, 0, 0);
                 }
                 else
                 {
-                    rb.velocity = new Vector3(-chaseSpeed, 0, 0);
+                    rb.velocity = new Vector3(-reportSpeed, 0, 0);
                 }
             }
         }
@@ -82,6 +86,7 @@ public class EnemyPatroll : BaseEnemy
             {
                 isStuned = false;
                 anim.SetBool("Stunned", false);
+                anim.SetBool("Chase", false);
             }
         }
 
@@ -102,9 +107,9 @@ public class EnemyPatroll : BaseEnemy
     }
 
     //Observa en donde esta el jugador para mirarlo
-    void SetPlayerDirection()
+    void SetAlarmDirection()
     {
-        if (player.position.x > transform.position.x)
+        if (CloseAlarm.transform.position.x > transform.position.x)
         {
             lookRigth = true;
         }
@@ -131,37 +136,34 @@ public class EnemyPatroll : BaseEnemy
     //Intenta capturar al jugador
     private void OnTriggerEnter(Collider other)
     {
+        
         if(other.tag == "Player")
         {
-            if(isStuned) return;
+            if(isStuned || reported) return;
 
-            chaseEnemy = true;
-            anim.SetBool("Chase", chaseEnemy);
+            reportEnemy = true;
+            anim.SetBool("Chase", reportEnemy);
         }
     }
 
-    //Ignora al jugador
-    private void OnTriggerExit(Collider other)
+
+    public void DontFollow()
     {
-        if (other.tag == "Player")
-        {
-            chaseEnemy = false;
-            anim.SetBool("Chase", chaseEnemy);
-        }
+        reportEnemy = false;
+        reported = true;
+        anim.SetBool("Chase", reportEnemy);
     }
-
 
     public override void StunEnemy(Collider other)
     {
         if(isStuned) return;
 
-            
         GunColor color = other.GetComponentInParent<GrapplingGun>().GetColor();
         bool isCorrectColor = GrappeMe(color, player);
         if(isCorrectColor)
         {
-            chaseEnemy = false;
-
+            reportEnemy = false;
+            reported = false;
             player.gameObject.GetComponent<PlayerController>().holdEnemy = true;
             anim.SetBool("Stunned", true);
         }
@@ -174,6 +176,15 @@ public class EnemyPatroll : BaseEnemy
         Gizmos.DrawRay(transform.position, transform.right * maxLeft * -1);
     }
 
+    public bool IsReporting()
+    {
+        return reportEnemy;
+    }
+
+    public void RestoreReported()
+    {
+        reported = false;
+    }
 
     //Reinicia los valores del personaje a sus valores iniciales
     protected override void ResetEnemy()
@@ -183,9 +194,11 @@ public class EnemyPatroll : BaseEnemy
         isStuned = false;
         transform.position = startPosition;
         lookRigth = true;
-        chaseEnemy = false;
+        reportEnemy = false;
+        reported = false;
         anim.SetBool("Chase", false);
         anim.SetBool("Move", false);
         anim.SetBool("Stunned", false);
     }
+
 }

@@ -477,10 +477,10 @@ GameObject:
   - component: {fileID: 795357472266474206}
   - component: {fileID: 795357472259155891}
   - component: {fileID: 795357472259155890}
-  - component: {fileID: 795357472259155900}
   - component: {fileID: 8948128219184451710}
+  - component: {fileID: 6863865960316473379}
   m_Layer: 0
-  m_Name: EnemyPatroll_PF
+  m_Name: EnemyReporterl_PF
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -551,7 +551,20 @@ CapsuleCollider:
   m_Height: 4.8244996
   m_Direction: 1
   m_Center: {x: 0.007930756, y: 0.6018536, z: 0.031204581}
---- !u!114 &795357472259155900
+--- !u!65 &8948128219184451710
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 795357472259055902}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.5, y: 1.5, z: 20}
+  m_Center: {x: 0, y: 3, z: 10}
+--- !u!114 &6863865960316473379
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -560,7 +573,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 795357472259055902}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b19b2f53ff985b4b97d32380e6faf15, type: 3}
+  m_Script: {fileID: 11500000, guid: ebb2d245971c22041b8b4219014e0c99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyColor: 0
@@ -575,22 +588,10 @@ MonoBehaviour:
   anim: {fileID: 795357472266474206}
   maxRight: 10
   maxLeft: 10
-  speed: 10
-  chaseSpeed: 20
+  speed: 5
+  reportSpeed: 7
   rb: {fileID: 795357472259155891}
---- !u!65 &8948128219184451710
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 795357472259055902}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.5, y: 1.5, z: 20}
-  m_Center: {x: 0.019529343, y: 3.0217648, z: 10}
+  CloseAlarm: {fileID: 0}
 --- !u!1 &795357472259055978
 GameObject:
   m_ObjectHideFlags: 0
@@ -1018,7 +1019,8 @@ GameObject:
   - component: {fileID: 1209377655853627400}
   - component: {fileID: 7906379275750692750}
   - component: {fileID: 7685708094089447663}
-  - component: {fileID: 1666573146330697637}
+  - component: {fileID: 8917537411192737431}
+  - component: {fileID: 7206597272669909881}
   m_Layer: 0
   m_Name: Hat
   m_TagString: PatrolHead
@@ -1100,9 +1102,9 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 6, z: 1.5}
+  m_Size: {x: 1.2, y: 6, z: 1.5}
   m_Center: {x: 0, y: -2, z: 0}
---- !u!114 &1666573146330697637
+--- !u!114 &8917537411192737431
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1114,4 +1116,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e56b3dcd0ad32ae40ad2530ecd8278ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Owner: {fileID: 795357472259155900}
+  Owner: {fileID: 6863865960316473379}
+--- !u!65 &7206597272669909881
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7886827309624150920}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 5, z: 1}
+  m_Center: {x: 0, y: -2, z: 0}

@@ -19,7 +19,8 @@ public class TextDialog : MonoBehaviour
     void Start()
     {
         hasActivate = false;
-        boxDialog = GameObject.FindGameObjectWithTag("BoxDialog").GetComponent<TextShow>();
+        GameObject GO = GameObject.FindGameObjectWithTag("BoxDialog");
+        if(GO != null) boxDialog = GO.GetComponent<TextShow>();
     }
 
     private void OnTriggerEnter(Collider other)

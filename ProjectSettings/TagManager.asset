@@ -18,6 +18,8 @@ TagManager:
   - BoxDialog
   - Gun
   - Bullet
+  - Alarm
+  - PatrolHead
   layers:
   - Default
   - TransparentFX

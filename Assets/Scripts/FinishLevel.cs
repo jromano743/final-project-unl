@@ -7,9 +7,12 @@ public class FinishLevel : MonoBehaviour
     public bool needAKey;
     public KeyBehaivor[] keys;
 
+    AlarmPanel MainPanel;
+
     private void Start()
     {
         keys = FindObjectsOfType(typeof(KeyBehaivor)) as KeyBehaivor[];
+        MainPanel = Object.FindObjectOfType<AlarmPanel>();
         if(keys.Length != 0)
         {
             needAKey = true;
@@ -25,19 +28,26 @@ public class FinishLevel : MonoBehaviour
 
     private void CheckWin()
     {
+        if(MainPanel.AlarmsOff())
+        {
+            return;
+        }
+
+        Debug.Log("Fin del nivel");
+        /*
         if (needAKey)
         {
-            bool allCollectables = true;
+            bool allKeysIsCollected = true;
             for (int i = 0; i < keys.Length; i++)
             {
-                if (!keys[i].isTaken) allCollectables = false;
+                if (!keys[i].isTaken) allKeysIsCollected = false;
             }
-            if (allCollectables) LevelManager.sharedInstance.FinishLevel();
+            if (allKeysIsCollected) LevelManager.sharedInstance.FinishLevel();
         }
         else
         {
             LevelManager.sharedInstance.FinishLevel();
-        }
+        }*/
     }
 
     public void ResetKeys()
@@ -47,4 +57,5 @@ public class FinishLevel : MonoBehaviour
             keys[i].ResetMe();
         }
     }
+
 }

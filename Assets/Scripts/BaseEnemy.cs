@@ -14,9 +14,7 @@ public class BaseEnemy : MonoBehaviour
     public float stunTime = 5f;
     [SerializeField] protected float currentStunTime;
     public bool resetMe;//Variable que indica si el enemigo debe reiniciarse
-    public Material RedMaterial;
-    public Material YellowMaterial;
-    public Material BlueMaterial;
+    public Material RedMaterial, YellowMaterial, BlueMaterial;
     protected Transform grappPosition;
     protected bool isGrappred;
     [SerializeField] protected bool isStuned;
@@ -32,10 +30,7 @@ public class BaseEnemy : MonoBehaviour
     }
 
     //Funcion que se redefine segun el tipo de enemigo
-    protected virtual void ResetEnemy()
-    {
-        
-    }
+    protected virtual void ResetEnemy(){}
 
     protected bool GrappeMe(GunColor gunColor, Transform _grappPosition)
     {
@@ -77,4 +72,6 @@ public class BaseEnemy : MonoBehaviour
             break;
         }
     }
+
+    public virtual void StunEnemy(Collider other){}
 }

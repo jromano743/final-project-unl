@@ -88,11 +88,6 @@ public class ListaCircular
         return cant;
     }
 
-    public void DebugLogs()
-    {
-        
-    }
-
     public void Borrar(int pos)
     {
         if (pos <= Cantidad())
