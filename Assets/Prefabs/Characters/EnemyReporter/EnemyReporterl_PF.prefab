@@ -585,6 +585,7 @@ MonoBehaviour:
   YellowMaterial: {fileID: 2100000, guid: 88eeac20323838d4999951b44a6c2a9d, type: 2}
   BlueMaterial: {fileID: 2100000, guid: cea1ac0c41c435c458c27be73b7659f2, type: 2}
   isStuned: 0
+  PunchSound: {fileID: 8300000, guid: 4ff12758e68273a42b8b2a892991ca1e, type: 3}
   anim: {fileID: 795357472266474206}
   maxRight: 10
   maxLeft: 10

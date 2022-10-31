@@ -168,6 +168,7 @@ public class GrapplingGun : MonoBehaviour
 
     public static bool fired;//Si se disparó el hook
     public bool hooked;//Cuando se enganchó a un objeto
+    public bool returnHook;//Cuando se retorna el hook
     public GameObject hookedObj;//El objeto al que se engancho
     public LineRenderer rope;//La linea que dibujara desde el hook hasta el hok holder
 
@@ -205,6 +206,8 @@ public class GrapplingGun : MonoBehaviour
         rope.positionCount = 0;
         hookScale = hook.transform.localScale;
 
+        returnHook = false;
+
         ChangeWeaponColor();
     }
 
@@ -237,7 +240,14 @@ public class GrapplingGun : MonoBehaviour
         {
             hook.transform.Translate(Vector3.up * Time.deltaTime * hookTravelSpeed);
             currentDistance = Vector3.Distance(transform.position, hook.transform.position);
-            if (currentDistance >= maxDistance) ReturnHook();
+            if (currentDistance >= maxDistance || returnHook)
+            {
+                ReturnHook();
+                if(returnHook) 
+                {
+                    returnHook = false;
+                }
+            }
         }
 
         //Si esta en disparo y se adiere a un objeto aderente
@@ -321,6 +331,11 @@ public class GrapplingGun : MonoBehaviour
         fired = false;
         hooked = false;
         rope.positionCount = 0;
+    }
+
+    public void WallCollision()
+    {
+        returnHook = true;
     }
 
     public GunColor GetColor(int next=0)

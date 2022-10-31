@@ -135,6 +135,7 @@ public class EnemyShooter : BaseEnemy
         {
             target.gameObject.GetComponent<PlayerController>().holdEnemy = true;
             isStuned = true;
+            AudioManager.sharedInstance.PlaySound(PunchSound);
             anim.SetBool("Stunned", true);
         }
     }

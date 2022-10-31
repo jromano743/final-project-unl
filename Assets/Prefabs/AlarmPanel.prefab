@@ -631,6 +631,8 @@ MonoBehaviour:
   - {fileID: 4366049387465482920}
   - {fileID: 1096591751688526674}
   - {fileID: 5084880941258766284}
+  AlarmSound: {fileID: 8300000, guid: 5f1860ec5c2d65149af063b73b5a599d, type: 3}
+  AccesGrantedSound: {fileID: 8300000, guid: 7c5765f98e8b0aa4cbdca78614b655c2, type: 3}
 --- !u!1 &5984037024660732618
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,6 +18,7 @@ public class BaseEnemy : MonoBehaviour
     protected Transform grappPosition;
     protected bool isGrappred;
     [SerializeField] protected bool isStuned;
+    [SerializeField] protected AudioClip PunchSound;
     protected Transform stunPosition;
 
     // Start is called before the first frame update

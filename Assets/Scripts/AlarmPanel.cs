@@ -22,6 +22,10 @@ public class AlarmPanel : MonoBehaviour
     [SerializeField] float TunOnRate = 1;
     [SerializeField] MeshRenderer[] LightsObjects;
     [SerializeField] Light[] SpothLights;
+
+    [Header("Sounds")]
+    [SerializeField] AudioClip AlarmSound;
+    [SerializeField] AudioClip AccesGrantedSound;
     float CurrentIntensity;
     bool TurnOnLight = false;
     
@@ -58,7 +62,11 @@ public class AlarmPanel : MonoBehaviour
                 SpothLights[1].intensity += DeltaTime * TunOnRate;
                 SpothLights[2].intensity += DeltaTime * TunOnRate;
                 CurrentIntensity += DeltaTime * TunOnRate;
-                if(CurrentIntensity >= MaxIntensity) TurnOnLight = false;
+                if(CurrentIntensity >= MaxIntensity) 
+                {
+                    AudioManager.sharedInstance.PlaySound(AlarmSound);
+                    TurnOnLight = false;
+                }
             }
             else
             {
@@ -114,6 +122,8 @@ public class AlarmPanel : MonoBehaviour
 
         CurrentIntensity = 1;
         TurnOnLight = false;
+
+        AudioManager.sharedInstance.PlaySound(AccesGrantedSound);
 
         CancelReports();
     }

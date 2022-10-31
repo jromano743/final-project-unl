@@ -165,6 +165,8 @@ public class EnemyReporter : BaseEnemy
             reportEnemy = false;
             reported = false;
             player.gameObject.GetComponent<PlayerController>().holdEnemy = true;
+
+            AudioManager.sharedInstance.PlaySound(PunchSound);
             anim.SetBool("Stunned", true);
         }
     }

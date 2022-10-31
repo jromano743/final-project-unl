@@ -33,9 +33,12 @@ public class HookDetector : MonoBehaviour
                     playerGun.hookedObj = other.gameObject;
                 }
                 break;
+            case "ground":
+                Debug.Log("Pared");
+                player.GetComponent<GrapplingGun>().WallCollision();
+                break;
             default:
                 /*  TODO: Al chocar con un objeto cualquiera retroceder */
-                //player.GetComponent<GrapplingGun>().StartCoroutine("Climb");
                 break;
         }
     }

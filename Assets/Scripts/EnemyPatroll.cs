@@ -163,6 +163,8 @@ public class EnemyPatroll : BaseEnemy
             chaseEnemy = false;
 
             player.gameObject.GetComponent<PlayerController>().holdEnemy = true;
+
+            AudioManager.sharedInstance.PlaySound(PunchSound);
             anim.SetBool("Stunned", true);
         }
     }

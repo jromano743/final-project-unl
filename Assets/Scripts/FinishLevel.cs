@@ -7,6 +7,7 @@ public class FinishLevel : MonoBehaviour
     public bool needAKey;
     public KeyBehaivor[] keys;
 
+    bool LevelHasAlarms = false;
     AlarmPanel MainPanel;
 
     private void Start()
@@ -17,6 +18,8 @@ public class FinishLevel : MonoBehaviour
         {
             needAKey = true;
         }
+
+        if(MainPanel != null) LevelHasAlarms = true;
     }
     private void OnTriggerStay(Collider other)
     {
@@ -28,13 +31,8 @@ public class FinishLevel : MonoBehaviour
 
     private void CheckWin()
     {
-        if(MainPanel.AlarmsOff())
-        {
-            return;
-        }
-
-        Debug.Log("Fin del nivel");
-        /*
+        if(LevelHasAlarms && MainPanel.AlarmsOff()) return;
+        
         if (needAKey)
         {
             bool allKeysIsCollected = true;
@@ -47,7 +45,7 @@ public class FinishLevel : MonoBehaviour
         else
         {
             LevelManager.sharedInstance.FinishLevel();
-        }*/
+        }
     }
 
     public void ResetKeys()
